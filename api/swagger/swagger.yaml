@@ -18,25 +18,131 @@ consumes:
 produces:
   - application/json
 paths:
-  /hello:
+  /users:
     # binds a127 app logic to a route
-    x-swagger-router-controller: hello_world
+    x-swagger-router-controller: user
     get:
-      description: Returns 'Hello' to the caller
-      # used as the method name of the controller
-      operationId: hello
-      parameters:
-        - name: name
-          in: query
-          description: The name of the person to whom to say hello
-          required: false
-          type: string
+      description: Get all users
       responses:
         "200":
           description: Success
           schema:
             # a pointer to a definition
-            $ref: "#/definitions/HelloWorldResponse"
+            $ref: "#/definitions/UsersResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    post:
+      description: Create a user
+      parameters:
+        - in: body
+          name: user
+          description: The user to create.
+          schema:
+            type: object
+            required:
+              - username
+              - password
+              - firstname
+              - lastname
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+              roles:
+                type: array
+                items:
+                  type: string
+                  enum: [user, admin]
+              firstname:
+                type: string
+              lastname:
+                type: string
+      responses:
+        "201":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/UsersResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  # /users/create:
+  #   # binds a127 app logic to a route
+  #   x-swagger-router-controller: user
+    
+  /users/{username}:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: user
+    parameters:
+        - name: username
+          in: path
+          description: username of the user to get
+          required: true
+          type: string
+    get:
+      description: Get user by username
+      # used as the method name of the controller
+      operationId: get
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/UsersResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /users/{username}/edit:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: user
+    parameters:
+        - name: username
+          in: path
+          description: username of the user to get
+          required: true
+          type: string
+    post:
+      description: Get user by username
+      # used as the method name of the controller
+      operationId: edit
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/UsersResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /users/{username}/delete:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: user
+    parameters:
+        - name: username
+          in: path
+          description: username of the user to get
+          required: true
+          type: string
+    post:
+      description: Get user by username
+      # used as the method name of the controller
+      operationId: destroy
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/UsersResponse"
         # responses may fall through to errors
         default:
           description: Error
@@ -46,7 +152,7 @@ paths:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
 definitions:
-  HelloWorldResponse:
+  UsersResponse:
     required:
       - message
     properties:
