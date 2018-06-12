@@ -22,36 +22,27 @@ function index(req, res) {
 	});
 }
 
-async function get(req, res) {
-	User.find(req.params.username).then(data => {
+function get(req, res) {
+	User.find({'local.username': req.params.username }).then(data => {
 		res.json(data);
 	}).fail(err => {
 		console.warn(err);
 	});
 }
 
-async function create(req, res) {
-	// console.log('top');
-	// console.log(req.body);
-	// 	// const user = new User(req.body);
-	//
-	// var user = new User({
-	// 	firstname: req.body.firstname,
-	// 	lastname: req.body.lastname,
-	// 	local: {
-	// 		username: req.body.username,
-	// 		password: req.body.password
-	// 	},
-	// 	roles: req.body.roles
-	// });
-	// console.log(user);
-	// console.log('before save');
-	// var newuser = await user.save();//.then(res.json(req.body));
-	// console.log('after save');
-	// console.log('after set header');
-	// res.status(201);
-	// return res.json(newuser);
-	// console.log('after return json');
+function create(req, res) {
+	var user = new User({
+		firstname: req.body.firstname,
+		lastname: req.body.lastname,
+		local: {
+			username: req.body.username,
+			password: req.body.password
+		},
+		roles: req.body.roles
+	});
+	var newuser = user.save().then(data => {
+		res.json(data);
+	}).fail(data);
 }
 
 function edit() {
@@ -61,7 +52,5 @@ function edit() {
 function destroy() {
 
 }
-
-router.post('/', create);
 
 
