@@ -60,26 +60,30 @@ function fillTestPubs() {
 };
 
 function fillTestRaces() {
-	const testCreator = User.findOne({firstname: 'Koen'});
-	const testPub = Pub.findOne({placeId: 'ChIJJz7zfPbuxkcRubjnDwC0Wdk'});
-
-	const testData = [{
-		name: 'Race 1',
-		description: 'Test race 1',
-		status: 'notstarted',
-		creator: testCreator._id,
-		pubs: [testPub._id],
-		users: [],
-		starttime: null
-	}];
-
 	Race.find({}).then(data => {
 		if (data.length == 0) {
 			console.log('Creating races testdata');
-
-			testData.forEach(function (race) {
-				new Race(race).save();
+			User.findOne({firstname: 'Koen'}).then(testCreator => {
+				Pub.findOne({placeId: 'ChIJJz7zfPbuxkcRubjnDwC0Wdk'}).then(testPub => {
+					const testData = [{
+						name: 'Race 1',
+						description: 'Test race 1',
+						status: 'notstarted',
+						creator: testCreator,
+						pubs: [testPub],
+						users: [testCreator],
+						starttime: Date.now(),
+					}];
+					testData.forEach(function (race) {
+						console.log(race);
+						new Race(race).save();
+					});
+					console.log("done races");
+				});
 			});
+
+
+
 		} else {
 			console.log('Testdata allready present');
 		}
