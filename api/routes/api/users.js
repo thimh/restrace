@@ -19,11 +19,12 @@ function edit() {
 
 }
 
-function destroy() {
-
+function destroy(req, res) {
+	userController.destroy(req, res);
 }
 
 router.get('/', index);
 router.get('/:username', get);
 
 router.post('/', create);
+router.delete('/:username', destroy);
