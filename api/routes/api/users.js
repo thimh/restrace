@@ -15,8 +15,8 @@ function create(req, res) {
 	userController.create(req, res);
 }
 
-function edit() {
-
+function edit(req, res) {
+	userController.edit(req, res);
 }
 
 function destroy(req, res) {
@@ -26,5 +26,6 @@ function destroy(req, res) {
 router.get('/', index);
 router.get('/:username', get);
 
+router.patch('/:username', edit);
 router.post('/', create);
 router.delete('/:username', destroy);

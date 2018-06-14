@@ -4,7 +4,7 @@ let express = require('express'),
 	router  = module.exports = express.Router();
 
 const util = require('util');
-const User = require('../models/user');
+const Race = require('../models/race');
 
 module.exports = {
 	index: index,
@@ -15,7 +15,7 @@ module.exports = {
 };
 
 function index(req, res) {
-	User.find().then(data => {
+	Race.find().then(data => {
 		return res.json(data);
 	}).fail(err => {
 		console.warn(err);
@@ -23,7 +23,7 @@ function index(req, res) {
 }
 
 function get(req, res) {
-	User.find({'local.username': req.params.username }).then(data => {
+	Race.find({'name': req.params.name }).then(data => {
 		res.json(data);
 	}).fail(err => {
 		console.warn(err);
@@ -31,7 +31,7 @@ function get(req, res) {
 }
 
 function create(req, res) {
-	var user = new User({
+	/*var user = new User({
 		firstname: req.body.firstname,
 		lastname: req.body.lastname,
 		local: {
@@ -44,16 +44,15 @@ function create(req, res) {
 		res.json(data);
 	}).fail(err => {
 		console.warn(err);
-	});
+	});*/
 }
 
 function edit(req, res) {
 	//TODO EDIT
-	console.log(req.body);
 }
 
 function destroy(req, res) {
-	User.deleteOne({'local.username': req.params.username }).then(data => {
+	Race.deleteOne({'name': req.params.name }).then(data => {
 		res.json(data);
 	}).fail(err => {
 		console.warn(err);

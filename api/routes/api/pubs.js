@@ -15,8 +15,8 @@ function create(req, res) {
 	pubController.create(req, res);
 }
 
-function edit() {
-
+function edit(req, res) {
+	pubController.edit(req, res);
 }
 
 function destroy(req, res) {
