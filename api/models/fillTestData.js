@@ -42,7 +42,7 @@ function fillTestPubs() {
 	const testData = [{
 		name: 'Bitterzoet',
 		placeId: 'ChIJJz7zfPbuxkcRubjnDwC0Wdk',
-		lon: 5.3043074,
+		lng: 5.3043074,
 		lat: 51.6880754
 	}];
 

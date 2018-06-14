@@ -42,7 +42,9 @@ function create(req, res) {
 	});
 	var newuser = user.save().then(data => {
 		res.json(data);
-	}).fail(data);
+	}).fail(err => {
+		console.warn(err);
+	});
 }
 
 function edit(req, res) {

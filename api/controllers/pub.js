@@ -31,18 +31,17 @@ function get(req, res) {
 }
 
 function create(req, res) {
-	/*var user = new User({
-		firstname: req.body.firstname,
-		lastname: req.body.lastname,
-		local: {
-			username: req.body.username,
-			password: req.body.password
-		},
-		roles: req.body.roles
+	var pub = new Pub({
+		name: req.body.name,
+		placeId: req.body.placeId,
+		lng: req.body.lng,
+		lat: req.body.lat
 	});
-	var newuser = user.save().then(data => {
+	var newPub = pub.save().then(data => {
 		res.json(data);
-	}).fail(data);*/
+	}).fail(err => {
+		console.warn(err);
+	});
 }
 
 function edit(req, res) {
@@ -50,11 +49,11 @@ function edit(req, res) {
 }
 
 function destroy(req, res) {
-	/*User.deleteOne({'local.username': req.params.username }).then(data => {
+	Pub.deleteOne({'name': req.params.name }).then(data => {
 		res.json(data);
 	}).fail(err => {
 		console.warn(err);
-	});*/
+	});
 }
 
 
