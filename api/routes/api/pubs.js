@@ -27,4 +27,5 @@ router.get('/', index);
 router.get('/:name', get);
 
 router.post('/', create);
+router.patch('/:name', edit);
 router.delete('/:name', destroy);

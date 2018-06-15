@@ -5,6 +5,7 @@ let express = require('express'),
 
 const util = require('util');
 const Race = require('../models/race');
+const Pub = require('./pub');
 
 module.exports = {
 	index: index,
@@ -31,9 +32,13 @@ function get(req, res) {
 }
 
 function create(req, res) {
-	/*var user = new User({
-		firstname: req.body.firstname,
-		lastname: req.body.lastname,
+	pubController
+	var race = new Race({
+		status: req.body.status,
+		pubs: [
+
+		]
+		name: req.body.name,
 		local: {
 			username: req.body.username,
 			password: req.body.password

@@ -26,6 +26,6 @@ function destroy(req, res) {
 router.get('/', index);
 router.get('/:username', get);
 
-router.patch('/:username', edit);
 router.post('/', create);
+router.patch('/:username', edit);
 router.delete('/:username', destroy);
